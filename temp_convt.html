@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temperature Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 400px;
+            margin: 100px auto;
+            padding: 20px;
+            background-color: #f0f0f0;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Temperature Converter</h2>
+        <label for="temperature">Enter temperature:</label>
+        <input type="number" id="temperature" placeholder="Enter temperature">
+        <select id="fromScale">
+            <option value="celsius">Celsius</option>
+            <option value="fahrenheit">Fahrenheit</option>
+            <option value="kelvin">Kelvin</option>
+        </select>
+        <p>Convert to:</p>
+        <select id="toScale">
+            <option value="celsius">Celsius</option>
+            <option value="fahrenheit">Fahrenheit</option>
+            <option value="kelvin">Kelvin</option>
+        </select>
+        <button onclick="convertTemperature()">Convert</button>
+        <p>Result: <span id="result"></span></p>
+    </div>
+
+    <script>
+        function convertTemperature() {
+            const temperature = parseFloat(document.getElementById("temperature").value);
+            const fromScale = document.getElementById("fromScale").value;
+            const toScale = document.getElementById("toScale").value;
+            let result;
+
+            if (fromScale === "celsius" && toScale === "fahrenheit") {
+                result = (temperature * 9/5) + 32;
+            } else if (fromScale === "fahrenheit" && toScale === "celsius") {
+                result = (temperature - 32) * 5/9;
+            } else if (fromScale === "celsius" && toScale === "kelvin") {
+                result = temperature + 273.15;
+            } else if (fromScale === "kelvin" && toScale === "celsius") {
+                result = temperature - 273.15;
+            } else if (fromScale === "fahrenheit" && toScale === "kelvin") {
+                result = ((temperature - 32) * 5/9) + 273.15;
+            } else if (fromScale === "kelvin" && toScale === "fahrenheit") {
+                result = ((temperature - 273.15) * 9/5) + 32;
+            } else {
+                result = temperature; // Same scale, no conversion needed
+            }
+
+            document.getElementById("result").textContent = result.toFixed(2);
+        }
+    </script>
+</body>
+</html>
